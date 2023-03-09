@@ -11,4 +11,8 @@ int list_insert(linklist h,data_t data,int pos);
 linklist list_get(linklist H, int pos);
 int list_delete(linklist H,int pos);
 int list_show(linklist H);
-
+int list_delete(linklist H,int pos);
+int list_free(linklist H);
+int list_reverse(linklist H);
+int list_merge(linklist H1,linklist H2);
+linklist list_adjmax(linklist H);

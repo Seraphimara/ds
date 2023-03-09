@@ -122,3 +122,92 @@ int list_show(linklist H) {
 	puts("");
 	return 0;
 }
+
+int list_free(linklist H) {
+	if (NULL == H) {
+		printf("H is NULL\n");
+		return -1;
+	}
+	linklist p = H;
+	while (H != NULL) {
+		H = H->next;
+		printf("delete %d\n",p->data);
+		free(p);
+		p = H;
+	}
+	return 0; 
+}
+int list_reverse(linklist H) {
+	if (NULL == H) {
+		printf("H is NULL\n");
+		return -1;
+	}
+	if (H->next == NULL || H->next->next == NULL) {
+		return 0;
+	}
+	linklist p,q;
+	p =  H->next->next;
+	H->next->next = NULL;
+	while (p != NULL) {
+		q=p;
+		p = p->next;	
+		q->next = H->next;
+		H->next = q;
+	}
+	return 0;
+
+}
+linklist list_adjmax(linklist H) {
+	if (NULL == H) {
+		printf("H is NULL\n");
+		return NULL;
+	}
+	if (H->next == NULL || H->next == NULL || H->next->next == NULL) {
+		return H;
+	}
+	linklist p,q,r;
+	p = H->next;
+	q = p->next;
+	r = p;
+	int sum = 0, max = 0;
+	while (q->next != NULL) {
+		sum = p->data+q->data;
+		if (sum > max) {
+			r = p;
+			max = sum;
+		}
+		p = p->next;
+		q = q->next;
+	}	
+	return p;
+}
+
+int list_merge(linklist H1,linklist H2) {
+	if (NULL == H1  || NULL == H2) {
+		printf("H1 || H2 is NULL\n");
+		return -1;
+	}
+	linklist p,q,r;
+	p = H1->next;
+	q = H2->next;
+	r = H1;
+	H1->next = NULL;
+	H2->next = NULL;
+	while (p && q) {
+		if (p->data < q->data) {
+			r->next = p;
+			r = r->next;
+			p = p->next;	
+		}else {
+			r->next = q;
+			r = r->next;
+			q = q->next;
+		}
+	}
+	if (p == NULL) {
+		r->next = q;
+	}else {
+		r->next = p;
+	}
+	return 0;
+}
